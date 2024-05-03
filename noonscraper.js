@@ -50,14 +50,43 @@ async function scrapeWebsite(pageLimit) {
         "h1.font-bold.text-green-600.text-xl",
         (element) => element.innerText
       );
+      const cat= await newPage.$eval(
+        "h2.text-darkIndigo-900.text-sm",
+        (element) => element.innerHTML
+      );
       const desc = await newPage.$$eval(
         "#details > div> div> div ",
         (elements) =>
           elements.map((element) => element.innerText)
       );
+      const ben = await newPage.$$eval(
+        "#benefits > div> div> div ",
+        (elements) =>
+          elements.map((element) => element.innerText)
+      );
+      const eli = await newPage.$$eval(
+        "#eligibility > div> div> div ",
+        (elements) =>
+          elements.map((element) => element.innerText)
+      );
+      const proc = await newPage.$$eval(
+        "#application-process > div> div> div ",
+        (elements) =>
+          elements.map((element) => element.innerText)
+      );
+      const doc = await newPage.$$eval(
+        "#documents-required > div> div> div ",
+        (elements) =>
+          elements.map((element) => element.innerText)
+      );
       const pageData= {
         title: title,
+        cat: cat,
         desc: desc[0],
+        ben: ben[0],
+        eli: eli[0],
+        proc: proc[0],
+        doc: doc[0],
         link: data[j].link,
       }
       console.log(pageData);
@@ -69,6 +98,7 @@ async function scrapeWebsite(pageLimit) {
     console.log("Page scraped...");
 
     // Click the next button
+    
   }
 
   console.log("...Done");
